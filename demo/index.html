@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>whyfocus - a page you cannot tab through</title>
+    <link rel="stylesheet" href="./broken.css" />
+  </head>
+  <body>
+    <header class="page-header">
+      <h1>A page you cannot tab through</h1>
+      <p>
+        Seven focus faults, all of them ordinary. Press <kbd>F</kbd> or click the
+        button to draw the real tab order over the page.
+      </p>
+      <button type="button" id="inspect">Show the tab order</button>
+    </header>
+
+    <section>
+      <h2>1. The search box that goes first</h2>
+      <p>
+        Someone wanted search "near the start" and wrote
+        <code>tabindex="1"</code>. Tab now begins here, before the skip link,
+        before the nav, before anything.
+      </p>
+      <input class="search" type="search" tabindex="1" placeholder="Search (tabindex=1)" />
+      <input class="filter" type="search" tabindex="2" placeholder="Filter (tabindex=2)" />
+    </section>
+
+    <section>
+      <h2>2. The dialog that is hidden from screen readers only</h2>
+      <p>
+        <code>aria-hidden="true"</code> hides it from assistive technology and
+        does nothing whatsoever to the tab order, so the keyboard still lands on
+        a button a screen reader has been told is not there.
+      </p>
+      <div class="dialog" aria-hidden="true">
+        <p>Cookie preferences</p>
+        <button type="button" class="dialog__close">Close</button>
+      </div>
+    </section>
+
+    <section>
+      <h2>3. The drawer that is only closed visually</h2>
+      <p>
+        One of these is <code>display: none</code> and genuinely gone. The other
+        is <code>opacity: 0</code>, still in the tab order, and will swallow two
+        tab presses into a menu nobody can see.
+      </p>
+      <nav class="drawer drawer--none" aria-label="Hidden properly">
+        <a href="#a">Reports</a><a href="#b">Settings</a>
+      </nav>
+      <nav class="drawer drawer--ghost" aria-label="Hidden badly">
+        <a href="#c">Reports</a><a href="#d">Settings</a>
+      </nav>
+    </section>
+
+    <section>
+      <h2>4. The backdrop that did it properly</h2>
+      <p>
+        <code>inert</code> takes the whole subtree out of the tab order and the
+        accessibility tree together. This is the fix for section 2.
+      </p>
+      <div class="backdrop" inert>
+        <button type="button">Behind the overlay</button>
+        <a href="#e">Also behind it</a>
+      </div>
+    </section>
+
+    <section>
+      <h2>5. Two ways to hide a skip link</h2>
+      <p>
+        The first is <code>width: 0; height: 0</code> and cannot be focused, so
+        the skip link never works. The second uses the clip-rect pattern, is
+        invisible, and still takes focus.
+      </p>
+      <a class="skip skip--broken" href="#main">Skip to content (broken)</a>
+      <a class="skip skip--clipped" href="#main">Skip to content (works)</a>
+    </section>
+
+    <section>
+      <h2>6. The toolbar that reads backwards</h2>
+      <p>
+        <code>flex-direction: row-reverse</code> moved the boxes. It did not move
+        the tab order, so focus runs right to left across this row.
+      </p>
+      <div class="toolbar">
+        <button type="button">First in the DOM</button>
+        <button type="button">Second</button>
+        <button type="button">Third</button>
+        <button type="button">Last in the DOM</button>
+      </div>
+    </section>
+
+    <section id="main">
+      <h2>7. The ones that are fine</h2>
+      <p>
+        A <code>tabindex="-1"</code> heading target and a disabled button. Both
+        are skipped on purpose, and neither is a bug.
+      </p>
+      <h3 tabindex="-1" class="target">A heading focused by script after routing</h3>
+      <button type="button" disabled>Save (disabled)</button>
+      <fieldset disabled>
+        <legend><input class="legend-input" placeholder="Legends stay focusable" /></legend>
+        <input placeholder="This one does not" />
+      </fieldset>
+    </section>
+
+    <script type="module" src="./demo.ts"></script>
+  </body>
+</html>

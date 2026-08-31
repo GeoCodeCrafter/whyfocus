@@ -1,0 +1,64 @@
+{
+  "name": "whyfocus",
+  "version": "0.1.0",
+  "description": "Draws the real tab order over a page, and explains why anything unreachable got skipped - tabindex, inert, aria-hidden ancestors, zero size, and the rest of the closed list.",
+  "keywords": [
+    "accessibility",
+    "a11y",
+    "focus",
+    "tabindex",
+    "keyboard-navigation",
+    "devtools",
+    "bookmarklet",
+    "aria",
+    "wcag",
+    "focus-order"
+  ],
+  "license": "MIT",
+  "author": "GeoCodeCrafter",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GeoCodeCrafter/whyfocus.git"
+  },
+  "bugs": { "url": "https://github.com/GeoCodeCrafter/whyfocus/issues" },
+  "homepage": "https://github.com/GeoCodeCrafter/whyfocus#readme",
+  "type": "module",
+  "sideEffects": ["./dist/index.js", "./dist/index.cjs", "./src/index.ts"],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": ["dist", "README.md", "LICENSE"],
+  "engines": { "node": ">=18.18" },
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:e2e": "playwright test",
+    "demo": "vite serve demo",
+    "demo:build": "vite build",
+    "demo:gif": "node scripts/record-gif.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.62.1",
+    "@types/node": "^22.10.2",
+    "@vitest/coverage-v8": "^2.1.8",
+    "gifenc": "^1.0.3",
+    "jsdom": "^25.0.1",
+    "pngjs": "^7.0.0",
+    "tsup": "^8.3.5",
+    "typescript": "^5.6.3",
+    "vite": "^6.0.0",
+    "vitest": "^2.1.8"
+  },
+  "publishConfig": { "access": "public" }
+}

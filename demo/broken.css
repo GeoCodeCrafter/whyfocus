@@ -1,0 +1,140 @@
+/*
+  Every fault here is deliberate and named. The demo is the fixture the engines
+  are developed against: if whyfocus cannot explain a section, that rule is not
+  finished.
+*/
+
+:root {
+  --line: #d5d9e0;
+  --ink: #14161a;
+  --muted: #6b7280;
+}
+
+body {
+  margin: 0;
+  padding: 40px 24px 120px;
+  color: var(--ink);
+  background: #fbfcfd;
+  font: 16px/1.6 system-ui, -apple-system, Segoe UI, sans-serif;
+}
+
+.page-header,
+section {
+  max-width: 900px;
+  margin: 0 auto 48px;
+}
+
+h2 {
+  font-size: 1.1rem;
+  margin-bottom: 0.3em;
+}
+
+section > p {
+  color: var(--muted);
+  max-width: 68ch;
+}
+
+code {
+  font: 13px ui-monospace, Menlo, Consolas, monospace;
+  background: #eef1f5;
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+button,
+input,
+a {
+  font: inherit;
+}
+
+button,
+input[type='search'] {
+  padding: 7px 14px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: white;
+}
+
+/* 2. aria-hidden hides from assistive tech and leaves the tab order alone. The
+      close button is still a focus stop. This is the WCAG 4.1.2 classic. */
+.dialog {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 16px;
+  background: white;
+  opacity: 0.55;
+}
+
+/* 3. One drawer is properly gone. The other is invisible and still tabbable. */
+.drawer {
+  display: flex;
+  gap: 12px;
+  padding: 10px 0;
+}
+
+.drawer--none {
+  display: none;
+}
+
+.drawer--ghost {
+  opacity: 0;
+}
+
+/* 4. inert is the correct tool: out of the tab order and the a11y tree at once. */
+.backdrop {
+  display: flex;
+  gap: 12px;
+  padding: 14px;
+  border: 1px dashed var(--line);
+  border-radius: 8px;
+  opacity: 0.4;
+}
+
+/* 5. Zero size cannot hold focus. The clip pattern can, which is why it exists. */
+.skip {
+  display: inline-block;
+}
+
+.skip--broken {
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.skip--clipped {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip--clipped:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  margin: 0;
+  clip-path: none;
+}
+
+/* 6. row-reverse moves the boxes and not the tab order, so focus runs right to
+      left across a row that reads left to right. */
+.toolbar {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+fieldset {
+  margin-top: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.target {
+  font-size: 1rem;
+}
