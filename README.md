@@ -148,6 +148,18 @@ src/
 - Scrollable containers are focusable in some browsers and not others. Not
   handled either way rather than handled wrongly.
 
+
+## The rest of the family
+
+Same idea, different question. Each one answers narrowly and refuses to guess.
+
+| | Question | |
+| --- | --- | --- |
+| [whylayout](https://github.com/GeoCodeCrafter/whylayout) | Why does this element look like that? | ✅ |
+| [whyfocus](https://github.com/GeoCodeCrafter/whyfocus) | Why can't I tab to this? | ✅ |
+| `whyslow` | Why did that interaction take 300ms? | planned |
+| `whybundle` | Why is this 400 kB in my bundle? | planned |
+
 ## The GIF above
 
 Generated, not screen-recorded — `npm run demo:gif`. Playwright drives the page
